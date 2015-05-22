@@ -126,18 +126,31 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 	/* Page elements */
 
 	function preloadPages () {
-		if (preloaded) {
-			return;
-		}
-		preloaded = true;
+	//		if (preloaded) {
+	//			return;
+	//		}
+	//		preloaded = true;				
 
 		var pageNodes = document.getElementsByClassName(PAGE_CLASS);
 
 		for (var i=pageNodes.length; i--;) {
+			if(isPageLoaded(pageNodes[i])){
+				continue;
+			}
 			addPage( pageNodes[i] );
 		}
 
 		document.body.className += ' ' + APP_LOADED;
+	}
+	
+	function isPageLoaded(page, pageName){
+		if ( !pageName ) {
+			pageName = page.getAttribute(PAGE_NAME);
+		}
+		if ( !pageName ) {
+			throw TypeError('isPageLoaded page name was not specified');
+		}
+		return (pageName in pages);
 	}
 
 	function addPage (page, pageName) {
