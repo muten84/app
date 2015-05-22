@@ -3,3 +3,4 @@ builds
 app.zip
 appjs/
 _site/
+/.project
